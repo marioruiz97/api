@@ -23,7 +23,9 @@ public class EntidadMascota {
 
     private Integer edad;
 
-    private Integer identificacionDueno;
+    @ManyToOne
+    @JoinColumn(name = "identificacion_dueno", referencedColumnName = "identificacion", nullable = false)
+    private EntidadUsuario dueno;
 
     private Integer peso;
 

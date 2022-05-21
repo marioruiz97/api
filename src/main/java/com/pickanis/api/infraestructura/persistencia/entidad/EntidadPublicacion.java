@@ -19,9 +19,13 @@ public class EntidadPublicacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPublicacion;
 
-    private Integer identificacionPublicador;
+    @ManyToOne
+    @JoinColumn(name = "identificacion_publicador", referencedColumnName = "identificacion", nullable = false)
+    private EntidadUsuario publicador;
 
-    private Integer identificacionMascota;
+    @ManyToOne
+    @JoinColumn(name = "id_mascota", referencedColumnName = "idMascota", nullable = false)
+    private EntidadMascota mascota;
 
     private LocalDate fechaPublicacion;
 
