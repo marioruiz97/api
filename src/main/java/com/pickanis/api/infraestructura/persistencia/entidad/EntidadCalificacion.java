@@ -11,12 +11,12 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "calificaciones")
+@Table(name = "calificaciones", uniqueConstraints = {@UniqueConstraint(name = "uk_calificacion", columnNames = {"idCalificaciones"})})
 public class EntidadCalificacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idCalificaciones;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "identificacion_Calificado", referencedColumnName = "identificacion")
@@ -26,7 +26,7 @@ public class EntidadCalificacion {
     @JoinColumn(name = "identificacion_Calificador", referencedColumnName = "identificacion")
     private EntidadUsuario usuarioCalificador;
 
-    @NotBlank(message = "no puede estar vacío")
+    @NotBlank(message = "El campo Evaluación no puede estar vacío")
     @Column(length = 2, nullable = false)
     private Integer evaluacion;
 

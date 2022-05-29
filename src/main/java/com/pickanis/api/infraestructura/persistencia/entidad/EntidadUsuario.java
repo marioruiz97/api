@@ -15,54 +15,28 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(name = "uk_usuarios_identificacion", columnNames = {"identificacion", "nombreUsuario"})})
 public class EntidadUsuario {
-
-
     @Id
-    @NotBlank(message = "no puede estar vacío")
+    @NotBlank(message = "El campo Identificación no puede estar vacío")
     @Column(length = 10, unique = true, nullable = false)
     private Integer identificacion;
 
-    @NotBlank(message = "no puede estar vacío")
+    @NotBlank(message = "El campo Nombre no puede estar vacío")
     @Column(length = 50, nullable = false)
     private String nombre;
 
-    @NotBlank(message = "no puede estar vacío")
+    @NotBlank(message = "El campo Apellido no puede estar vacío")
     @Column(length = 50, nullable = false)
     private String apellido;
 
-
-    private LocalDate fechaNacimiento; // todo: en verdad se necesita este campo?
-
-    @NotBlank(message = "no puede estar vacío")
-    @Column(length = 10, nullable = false)
-    @Pattern(regexp = "regex") //todo: agregar regexp para telefonos
-    private String celular;
-
-    @NotBlank(message = "no puede estar vacío")
-    @Column(length = 10, nullable = false)
-    @Pattern(regexp = "regex") //todo: agregar regexp para telefonos
-    private String telefonoFijo;
-
-    @NotBlank(message = "no puede estar vacío")
-    @Column(length = 50, nullable = false)
-    private String direccion;
-
-    @NotBlank(message = "no puede estar vacío")
-    @Column(length = 10, nullable = false)
-    @Pattern(regexp = "regex") //todo: agregar regexp para telefonos
-    private String celularEmergencia;
-
-    @NotBlank(message = "no puede estar vacío")
-    @Column(length = 10, nullable = false)
-    @Pattern(regexp = "regex") //todo: agregar regexp para telefonos
-    private String telefonoFijoEmergencia;
-
-    @NotBlank(message = "no puede estar vacío")
+    @NotBlank(message = "El campo Usuario no puede estar vacío")
     @Column(length = 30, nullable = false, unique = true)
     private String nombreUsuario;
 
-    @NotBlank(message = "no puede estar vacío")
+    @NotBlank(message = "El campo Contraseña no puede estar vacío")
     @Column(length = 15, nullable = false)
     @Pattern(regexp = "regexp para passwords") //todo:agregar regexp
     private String contrasena;
+
+    @Column(length = 100) //Dirreccion a la ubicacionde la imagen
+    private String foto;
 }
