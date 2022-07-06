@@ -37,10 +37,6 @@ public class EntidadContactoUsuario {
     @Column(length = 50, nullable = false)
     private String direccion;
 
-    @NotBlank(message = "El campo Email no puede estar vacío")
-    @Column(length = 50, nullable = false)
-    private String Email;
-
     @NotBlank(message = "El campo Celular Emergencia no puede estar vacío")
     @Column(length = 10, nullable = false)
     @Pattern(regexp = "regex") //todo: agregar regexp para telefonos

@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -28,15 +27,25 @@ public class EntidadUsuario {
     @Column(length = 50, nullable = false)
     private String apellido;
 
+    @NotBlank(message = "El campo correo no puede estar vacío")
+    @Column(length = 50, nullable = false)
+    private String correo;
+
     @NotBlank(message = "El campo Usuario no puede estar vacío")
     @Column(length = 30, nullable = false, unique = true)
     private String nombreUsuario;
 
     @NotBlank(message = "El campo Contraseña no puede estar vacío")
-    @Column(length = 15, nullable = false)
-    @Pattern(regexp = "regexp para passwords") //todo:agregar regexp
+    @Column(length = 60, nullable = false)
     private String contrasena;
 
     @Column(length = 100) //Dirreccion a la ubicacionde la imagen
     private String foto;
+
+    private Boolean habilitado;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "rol_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"id_usuario", "rol_id"})})
+    private List<Role> roles;
 }
