@@ -1,6 +1,6 @@
 package com.pickanis.api.aplicacion.manejadores;
 
-import com.pickanis.api.aplicacion.comandos.Registro;
+import com.pickanis.api.aplicacion.comandos.ComandoRegistro;
 import com.pickanis.api.aplicacion.fabricas.FabricaUsuario;
 import com.pickanis.api.dominio.servicios.ServicioUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class ManejadorRegistroUsuario {
         this.fabricaUsuario = fabricaUsuario;
     }
 
-    public void registrarUsuario(Registro nuevoRegistro) {
+    public void registrarUsuario(ComandoRegistro nuevoRegistro) {
         servicioRegistroUsuario.registrarUsuario(fabricaUsuario.construir(nuevoRegistro));
     }
 }

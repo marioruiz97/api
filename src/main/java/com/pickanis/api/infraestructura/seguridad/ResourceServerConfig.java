@@ -21,11 +21,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/cuenta/**", "/auth/cuenta/**").permitAll()
+                .antMatchers("/cuenta/**", "/api/v1/cuenta/**").permitAll()
                 .anyRequest().authenticated()
-                .and().cors().configurationSource(corsConfigurationSource())
-                .and().httpBasic()
-                .and().csrf().disable();
+                .and().cors().configurationSource(corsConfigurationSource());
     }
 
     @Bean
@@ -35,9 +33,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
         // TODO cambiar set allowed origins para restringir clientes
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200");
-        config.addAllowedHeader("*");
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+        // config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization")) usar si linea 37 no funciona
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        config.setMaxAge(3600L);
 
         source.registerCorsConfiguration("/**", config);
         return source;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ServicioUsuario {
-    public void registrarUsuario(Usuario construir) {
+    public void registrarUsuario(Usuario nuevoUsuario) {
         System.out.println("se ha registrado un usuario");
     }
 }
