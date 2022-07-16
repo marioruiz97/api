@@ -37,6 +37,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         List<GrantedAuthority> authorities = usuario.getRoles().stream()
                 .map(rol -> new SimpleGrantedAuthority(rol.getNombreRol())).collect(Collectors.toList());
-        return new User(usuario.getNombreUsuario(), usuario.getContrasena(), usuario.getHabilitado(), true, true, true, authorities);
+
+        // TODO: añadir logica para cuenta verificada y cuenta bloqueada y cambiar los valores quemados
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+        return new User(usuario.getNombreUsuario(), usuario.getContrasena(), usuario.getHabilitado(), accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 }

@@ -17,7 +17,7 @@ public class EntidadUsuario {
     @Id
     @NotBlank(message = "El campo Identificación no puede estar vacío")
     @Column(length = 10, unique = true, nullable = false)
-    private Integer identificacion;
+    private String identificacion;
 
     @NotBlank(message = "El campo Nombre no puede estar vacío")
     @Column(length = 50, nullable = false)

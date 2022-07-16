@@ -19,6 +19,7 @@ import javax.validation.Valid;
 public class ControladorRegistroUsuario extends ControladorBase {
 
     public static final String SE_HA_REGISTRADO_EL_USUARIO_S_CON_ÉXITO = "Se ha registrado el usuario %s con éxito";
+    private static final String SE_HA_REGISTRADO_EL_PASEADOR_CON_ÉXITO = "Se ha registrado el usuario %s como paseador de forma exitosa";
     private final ManejadorRegistroUsuario manejadorRegistroUsuario;
 
     @Autowired
@@ -32,7 +33,14 @@ public class ControladorRegistroUsuario extends ControladorBase {
         manejadorRegistroUsuario.registrarUsuario(nuevoRegistro);
         String mensaje = String.format(SE_HA_REGISTRADO_EL_USUARIO_S_CON_ÉXITO, nuevoRegistro.getUsuario());
         return new ResponseEntity<>(new Respuesta(mensaje, true), HttpStatus.CREATED);
+    }
 
+    @PostMapping
+    public ResponseEntity<Respuesta> registrarPaseador(@Valid @RequestBody ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
+        validarDatosEntrada(bindingResult);
+        manejadorRegistroUsuario.registrarPaseador(nuevoRegistro);
+        String mensaje = String.format(SE_HA_REGISTRADO_EL_PASEADOR_CON_ÉXITO, nuevoRegistro.getUsuario());
+        return new ResponseEntity<>(new Respuesta(mensaje, true), HttpStatus.CREATED);
     }
 
 }

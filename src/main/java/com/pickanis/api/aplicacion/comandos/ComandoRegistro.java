@@ -2,6 +2,7 @@ package com.pickanis.api.aplicacion.comandos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.*;
 
@@ -37,8 +38,9 @@ public class ComandoRegistro {
     @NotBlank
     private String contrasena;
 
-    private String tiempoExperiencia;
-
+    @Setter
+    private Integer tiempoExperiencia;
+    @Setter
     private String perfil;
 
 }
