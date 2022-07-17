@@ -1,7 +1,6 @@
 package com.pickanis.api.dominio.repositorio;
 
 
-import com.pickanis.api.dominio.modelo.Paseador;
 import com.pickanis.api.dominio.modelo.Usuario;
 
 public interface RepositorioRegistroUsuario {
@@ -14,5 +13,4 @@ public interface RepositorioRegistroUsuario {
 
     Usuario buscarUsuarioPorIdentificacion(String identificacion);
 
-    Paseador registrarPaseador(Paseador nuevoPaseador);
 }

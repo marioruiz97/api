@@ -30,8 +30,4 @@ public interface RepositorioRegistroUsuarioJPA extends JpaRepository<EntidadUsua
         return null;
     }
 
-    @Override
-    default Paseador registrarPaseador(Paseador nuevoPaseador) {
-        return nuevoPaseador;
-    }
 }

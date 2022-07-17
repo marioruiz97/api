@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-
 @Table(name = "paseadores", uniqueConstraints = {@UniqueConstraint(name = "uk_paseador", columnNames = {"idPaseador"})})
 public class EntidadPaseador {
 

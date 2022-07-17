@@ -3,6 +3,7 @@ package com.pickanis.api.infraestructura.persistencia.entidad;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -44,8 +45,9 @@ public class EntidadUsuario {
 
     private Boolean habilitado;
 
+    @Setter
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "rol_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"id_usuario", "rol_id"})})
-    private List<Role> roles;
+    private List<Roles> roles;
 }
