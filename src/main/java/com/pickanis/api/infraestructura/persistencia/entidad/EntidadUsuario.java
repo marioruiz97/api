@@ -29,7 +29,7 @@ public class EntidadUsuario {
     private String apellido;
 
     @NotBlank(message = "El campo correo no puede estar vacío")
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     private String correo;
 
     @NotBlank(message = "El campo Usuario no puede estar vacío")
@@ -50,4 +50,5 @@ public class EntidadUsuario {
     @JoinTable(joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "rol_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"id_usuario", "rol_id"})})
     private List<Roles> roles;
+
 }

@@ -4,6 +4,8 @@ import com.pickanis.api.dominio.excepcion.ExcepcionUsuarioRegistrado;
 import com.pickanis.api.dominio.modelo.Usuario;
 import com.pickanis.api.dominio.repositorio.RepositorioRegistroPaseador;
 import com.pickanis.api.dominio.repositorio.RepositorioRegistroUsuario;
+import com.pickanis.api.dominio.repositorio.RepositorioRoles;
+import com.pickanis.api.infraestructura.persistencia.entidad.Roles;
 import com.pickanis.api.infraestructura.persistencia.repositorio.RepositorioRegistroUsuarioJPA;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,12 +15,15 @@ public class ServicioRegistroUsuarioTest {
 
     RepositorioRegistroUsuario repoUsuario = Mockito.mock(RepositorioRegistroUsuarioJPA.class);
     RepositorioRegistroPaseador repoPaseador = Mockito.mock(RepositorioRegistroPaseador.class);
-    ServicioRegistroUsuario servicio = new ServicioRegistroUsuario(repoUsuario, repoPaseador);
+    RepositorioRoles repoRoles = Mockito.mock(RepositorioRoles.class);
+    ServicioRegistroUsuario servicio = new ServicioRegistroUsuario(repoUsuario, repoPaseador, repoRoles);
 
     @Test
     void registrarUsuario() {
         Usuario prueba = new Usuario("1234567", "mario", "ruiz", "mario@hotmail.com", "maruiz", "1234546", null, true);
-        Mockito.when(repoUsuario.registrarUsuario(prueba)).thenReturn(prueba);
+        Roles rol = new Roles(1L, "ROLE_USUARIO");
+        Mockito.when(repoRoles.obtenerRolUsuario()).thenReturn(rol);
+        Mockito.when(repoUsuario.registrarUsuario(prueba, rol)).thenReturn(prueba);
         Usuario result = servicio.registrarUsuario(prueba);
 
         Assertions.assertEquals(prueba, result);

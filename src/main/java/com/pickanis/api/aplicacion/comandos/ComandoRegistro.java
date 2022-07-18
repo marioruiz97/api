@@ -42,5 +42,7 @@ public class ComandoRegistro {
     private Integer tiempoExperiencia;
     @Setter
     private String perfil;
+    @Setter
+    private String estado;
 
 }

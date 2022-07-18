@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -28,16 +25,25 @@ public class ControladorRegistroUsuario extends ControladorBase {
     }
 
     @PostMapping
-    public ResponseEntity<Respuesta> registrarUsuario(@Valid @RequestBody ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
+    public ResponseEntity<Respuesta> nuevoRegistro(@Valid @RequestBody ComandoRegistro nuevoRegistro, @RequestParam String tipoRegistro, BindingResult bindingResult) {
+        if (tipoRegistro.equals("paseador")) {
+            return registrarPaseador(nuevoRegistro, bindingResult);
+        } else {
+            return registrarUsuario(nuevoRegistro, bindingResult);
+        }
+    }
+
+
+    private ResponseEntity<Respuesta> registrarUsuario(@Valid ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
         validarDatosEntrada(bindingResult);
         manejadorRegistroUsuario.registrarUsuario(nuevoRegistro);
         String mensaje = String.format(SE_HA_REGISTRADO_EL_USUARIO_S_CON_ÉXITO, nuevoRegistro.getUsuario());
         return new ResponseEntity<>(new Respuesta(mensaje, true), HttpStatus.CREATED);
     }
 
-    @PostMapping
-    public ResponseEntity<Respuesta> registrarPaseador(@Valid @RequestBody ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
+    private ResponseEntity<Respuesta> registrarPaseador(@Valid ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
         validarDatosEntrada(bindingResult);
+        nuevoRegistro.setEstado("1"); // TODO: este codigo se puso para que funcione, pero no estoy seguro que es el campo estado, debería eliminarse?
         manejadorRegistroUsuario.registrarPaseador(nuevoRegistro);
         String mensaje = String.format(SE_HA_REGISTRADO_EL_PASEADOR_CON_ÉXITO, nuevoRegistro.getUsuario());
         return new ResponseEntity<>(new Respuesta(mensaje, true), HttpStatus.CREATED);

@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface RepositorioAutenticacion extends CrudRepository<EntidadUsuario, Long> {
 
-    Optional<EntidadUsuario> findByNombreUsuario(String nombreUsuario);
+    Optional<EntidadUsuario> findByNombreUsuarioIgnoreCase(String nombreUsuario);
 
     Optional<EntidadUsuario> findByCorreoIgnoreCase(String nombreUsuario);
+
 }

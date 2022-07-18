@@ -3,8 +3,10 @@ package com.pickanis.api.infraestructura.persistencia.entidad;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -21,7 +23,7 @@ public class EntidadPaseador {
     @OneToOne(cascade = CascadeType.ALL)
     private EntidadUsuario usuario;
 
-    @NotBlank(message = "El campo Tiempo de Experiencia no puede estar vacío")
+    @NotNull(message = "El campo Tiempo de Experiencia no puede estar vacío")
     @Column(length = 3, nullable = false)
     private Integer tiempoExperiencia;
 
@@ -33,7 +35,7 @@ public class EntidadPaseador {
     @Column(length = 1, nullable = false)
     private String estado;
 
-    @NotBlank(message = "El campo Calificacion no puede estar vacío")
-    @Column(length = 2, nullable = false)
+
+    @Column(length = 2)
     private Integer calificacion;
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,16 +20,18 @@ import java.util.stream.Collectors;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final RepositorioAutenticacion repositorioUsuario;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserDetailsServiceImpl(RepositorioAutenticacion repositorioUsuario) {
+    public UserDetailsServiceImpl(RepositorioAutenticacion repositorioUsuario, BCryptPasswordEncoder passwordEncoder) {
         this.repositorioUsuario = repositorioUsuario;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        EntidadUsuario usuario = repositorioUsuario.findByCorreoIgnoreCase(usernameOrEmail)
+        EntidadUsuario usuario = repositorioUsuario.findByNombreUsuarioIgnoreCase(usernameOrEmail)
                 .orElse(repositorioUsuario.findByCorreoIgnoreCase(usernameOrEmail)
                         .orElse(null));
         if (usuario == null) {
@@ -43,5 +46,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         return new User(usuario.getNombreUsuario(), usuario.getContrasena(), usuario.getHabilitado(), accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+    }
+
+    public String codificarContrasena(String contrasena) {
+        return this.passwordEncoder.encode(contrasena);
     }
 }

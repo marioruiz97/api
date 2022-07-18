@@ -1,16 +1,19 @@
 package com.pickanis.api.infraestructura.persistencia.repositorio;
 
-import com.pickanis.api.dominio.modelo.Paseador;
-import com.pickanis.api.dominio.repositorio.RepositorioRegistroPaseador;
 import com.pickanis.api.infraestructura.persistencia.entidad.EntidadPaseador;
+import com.pickanis.api.infraestructura.persistencia.entidad.EntidadUsuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface RepositorioRegistroPaseadorJPA extends JpaRepository<EntidadPaseador, String>, RepositorioRegistroPaseador {
+import java.util.Optional;
 
-    @Override
-    default Paseador registrarPaseador(Paseador nuevoPaseador) {
-        return null;
+@Repository
+public interface RepositorioRegistroPaseadorJPA extends JpaRepository<EntidadPaseador, String> {
+
+    default Long obtenerIdPorUsuario(EntidadUsuario usuario) {
+        EntidadPaseador paseador = findByUsuario(usuario).orElse(null);
+        return paseador != null ? paseador.getIdPaseador() : null;
     }
+
+    Optional<EntidadPaseador> findByUsuario(EntidadUsuario usuario);
 }
