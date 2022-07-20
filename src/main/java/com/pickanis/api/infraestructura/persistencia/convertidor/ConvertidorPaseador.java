@@ -7,8 +7,8 @@ import com.pickanis.api.infraestructura.persistencia.entidad.EntidadUsuario;
 
 public final class ConvertidorPaseador {
 
-    public static EntidadPaseador convertirAEntidad(Paseador dominio, Long id, EntidadUsuario usuario) {
-        return new EntidadPaseador(id, usuario, dominio.getTiempoExperiencia(), dominio.getPerfilExperiencia(), dominio.getEstado(), dominio.getCalificacion());
+    public static EntidadPaseador convertirAEntidad(Paseador dominio, EntidadUsuario usuario) {
+        return new EntidadPaseador(usuario.getIdentificacion(), usuario, dominio.getTiempoExperiencia(), dominio.getPerfilExperiencia(), dominio.getEstado(), dominio.getCalificacion());
     }
 
     public static Paseador convertirADominio(EntidadPaseador entidad) {

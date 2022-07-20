@@ -16,8 +16,9 @@ import javax.validation.constraints.NotNull;
 public class EntidadPaseador {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPaseador;
+    @NotBlank(message = "El campo Identificación no puede estar vacío")
+    @Column(length = 15, unique = true, nullable = false)
+    private String idPaseador;
 
     @JoinColumn(name = "identificacion", referencedColumnName = "identificacion")
     @OneToOne(cascade = CascadeType.ALL)
