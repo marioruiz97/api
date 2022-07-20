@@ -17,7 +17,7 @@ import java.util.List;
 public class EntidadUsuario {
     @Id
     @NotBlank(message = "El campo Identificación no puede estar vacío")
-    @Column(length = 10, unique = true, nullable = false)
+    @Column(length = 15, unique = true, nullable = false)
     private String identificacion;
 
     @NotBlank(message = "El campo Nombre no puede estar vacío")

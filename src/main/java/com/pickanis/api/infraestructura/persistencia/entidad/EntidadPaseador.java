@@ -23,18 +23,17 @@ public class EntidadPaseador {
     @OneToOne(cascade = CascadeType.ALL)
     private EntidadUsuario usuario;
 
-    @NotNull(message = "El campo Tiempo de Experiencia no puede estar vacío")
-    @Column(length = 3, nullable = false)
-    private Integer tiempoExperiencia;
+    @NotBlank(message = "El campo Tiempo de Experiencia no puede estar vacío")
+    @Column(length = 100, nullable = false)
+    private String tiempoExperiencia;
 
     @NotBlank(message = "El campo Perfil Experiencia no puede estar vacío")
     @Column(length = 250, nullable = false)
     private String perfilExperiencia;
 
-    @NotBlank(message = "El campo Estado no puede estar vacío")
-    @Column(length = 1, nullable = false)
-    private String estado;
-
+    @NotNull(message = "El campo Estado no puede estar vacío")
+    @Column(nullable = false)
+    private Boolean estado;
 
     @Column(length = 2)
     private Integer calificacion;

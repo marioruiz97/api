@@ -39,10 +39,8 @@ public class ComandoRegistro {
     private String contrasena;
 
     @Setter
-    private Integer tiempoExperiencia;
+    private String tiempoExperiencia;
     @Setter
     private String perfil;
-    @Setter
-    private String estado;
 
 }

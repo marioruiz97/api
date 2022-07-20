@@ -43,7 +43,6 @@ public class ControladorRegistroUsuario extends ControladorBase {
 
     private ResponseEntity<Respuesta> registrarPaseador(@Valid ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
         validarDatosEntrada(bindingResult);
-        nuevoRegistro.setEstado("1"); // TODO: este codigo se puso para que funcione, pero no estoy seguro que es el campo estado, debería eliminarse?
         manejadorRegistroUsuario.registrarPaseador(nuevoRegistro);
         String mensaje = String.format(SE_HA_REGISTRADO_EL_PASEADOR_CON_ÉXITO, nuevoRegistro.getUsuario());
         return new ResponseEntity<>(new Respuesta(mensaje, true), HttpStatus.CREATED);

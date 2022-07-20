@@ -33,6 +33,7 @@ public class ServicioRegistroUsuario {
     public Usuario registrarPaseador(Paseador nuevoPaseador) {
         Usuario nuevoUsuario = registrarUsuarioPaseador(nuevoPaseador.getUsuario());
         System.out.println(String.format("El usuario %s se ha registrado correctamente", nuevoUsuario.getNombreUsuario()));
+        nuevoPaseador.activarPaseador();
         repositorioPaseador.registrarPaseador(nuevoPaseador);
         System.out.println(String.format("El paseador %s se ha registrado correctamente", nuevoUsuario.getNombreUsuario()));
         return nuevoUsuario;

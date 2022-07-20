@@ -14,6 +14,6 @@ public class FabricaUsuario {
     }
 
     public Paseador construirPaseador(Usuario usuario, ComandoRegistro nuevoRegistro) {
-        return new Paseador(usuario, nuevoRegistro.getTiempoExperiencia(), nuevoRegistro.getPerfil(), nuevoRegistro.getEstado());
+        return new Paseador(usuario, nuevoRegistro.getTiempoExperiencia(), nuevoRegistro.getPerfil());
     }
 }
