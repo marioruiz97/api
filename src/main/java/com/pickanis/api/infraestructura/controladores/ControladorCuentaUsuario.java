@@ -4,6 +4,7 @@ import com.pickanis.api.aplicacion.comandos.ComandoConsultaInformacionPersonal;
 import com.pickanis.api.aplicacion.comandos.ComandoGuardarInformacionPersonal;
 import com.pickanis.api.aplicacion.manejadores.ManejadorCuentaUsuario;
 import com.pickanis.api.dominio.excepcion.ExcepcionDatosExpuestos;
+import com.pickanis.api.dominio.modelo.ContactoEmergencia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -39,6 +41,32 @@ public class ControladorCuentaUsuario extends ControladorBase {
         String nombreUsuario = obtenerUsuarioEnSesion();
         this.manejadorCuentaUsuario.guardarMisDatosPersonales(informacion, nombreUsuario);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/contactos")
+    public List<ContactoEmergencia> obtenerContactosDeEmergencia(){
+        String nombreUsuario = obtenerUsuarioEnSesion();
+        return this.manejadorCuentaUsuario.obtenerMisContactosDeEmergencia(nombreUsuario);
+    }
+
+    @PostMapping("/contactos")
+    public ResponseEntity<ContactoEmergencia> agregarContactoEmergencia(@Valid @RequestBody ContactoEmergencia contacto, BindingResult bindingResult) {
+        validarDatosEntrada(bindingResult);
+        String nombreUsuario = obtenerUsuarioEnSesion();
+        ContactoEmergencia nuevoContacto = this.manejadorCuentaUsuario.agregarContactoEmergencia(contacto, nombreUsuario);
+        return new ResponseEntity<>(nuevoContacto, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/contactos/{id}")
+    public ResponseEntity<ContactoEmergencia> editarContactoEmergencia(@Valid @RequestBody ContactoEmergencia contacto, BindingResult bindingResult, @PathVariable Integer id) {
+        if (id == null || id == 0) {
+            throw new IllegalArgumentException("El id ingresado no es válido");
+        }
+        validarDatosEntrada(bindingResult);
+        String nombreUsuario = obtenerUsuarioEnSesion();
+        contacto.setId(id);
+        ContactoEmergencia nuevoContacto = this.manejadorCuentaUsuario.agregarContactoEmergencia(contacto, nombreUsuario);
+        return new ResponseEntity<>(nuevoContacto, HttpStatus.CREATED);
     }
 
 }

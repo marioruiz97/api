@@ -14,7 +14,7 @@ public class ComandoRegistro {
     private Integer tipoDocumento;
 
     @NotBlank
-    @Size(min = 6, max = 11)
+    @Size(min = 6, max = 15)
     private String identificacion;
 
     @NotBlank

@@ -4,10 +4,13 @@ import com.pickanis.api.aplicacion.comandos.ComandoConsultaInformacionPersonal;
 import com.pickanis.api.aplicacion.comandos.ComandoGuardarInformacionPersonal;
 import com.pickanis.api.aplicacion.fabricas.FabricaCuentaUsuario;
 import com.pickanis.api.dominio.excepcion.ExcepcionDatosExpuestos;
+import com.pickanis.api.dominio.modelo.ContactoEmergencia;
 import com.pickanis.api.dominio.modelo.Usuario;
 import com.pickanis.api.dominio.servicios.ServicioCuentaUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class ManejadorCuentaUsuario {
@@ -33,5 +36,13 @@ public class ManejadorCuentaUsuario {
             throw new ExcepcionDatosExpuestos();
         Usuario usuario = this.fabricaCuentaUsuario.prepararInformacionPersonal(informacion);
         this.servicioCuentaUsuario.guardarInformacionPersonal(usuario, nombreUsuario);
+    }
+
+    public ContactoEmergencia agregarContactoEmergencia(ContactoEmergencia contacto, String nombreUsuario) {
+        return this.servicioCuentaUsuario.crearOEditarContactoEmergencia(contacto, nombreUsuario);
+    }
+
+    public List<ContactoEmergencia> obtenerMisContactosDeEmergencia(String nombreUsuario) {
+        return this.servicioCuentaUsuario.obtenerMisContactosDeEmergencia(nombreUsuario);
     }
 }

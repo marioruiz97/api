@@ -33,7 +33,7 @@ public class ComandoGuardarInformacionPersonal {
     @Email
     private String correo;
     @NotBlank
-    @Size(min = 6, max = 11)
+    @Size(min = 6, max = 15)
     private String identificacion;
     @NotNull
     private Integer tipoDocumento;

@@ -17,21 +17,24 @@ import java.io.Serializable;
 public class EntidadContactoEmergencia implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @OneToOne
     @JoinColumn(name = "identificacion_usuario", referencedColumnName = "identificacion")
     private EntidadUsuario usuario;
 
     @NotBlank(message = "El campo nombre contacto emergencia no puede estar vacío")
     @Column(length = 50, nullable = false)
-    private String nombreContacto;
+    private String nombre;
 
     @NotBlank(message = "El campo Celular Emergencia no puede estar vacío")
-    @Column(length = 10, nullable = false)
-    @Pattern(regexp = "regex") //todo: agregar regexp para telefonos
-    private String celularEmergencia;
+    @Column(length = 12, nullable = false)
+    @Pattern(regexp = "(^$|[0-9]{7,12})")
+    private String celular;
 
-    @Column(length = 10, nullable = false)
-    @Pattern(regexp = "regex") //todo: agregar regexp para telefonos
-    private String telefonoFijoEmergencia;
+    @Column(length = 12)
+    @Pattern(regexp = "(^$|[0-9]{7,12})")
+    private String telefonoFijo;
 
 }

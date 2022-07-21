@@ -1,13 +1,17 @@
 package com.pickanis.api.dominio.servicios;
 
 
+import com.pickanis.api.dominio.modelo.ContactoEmergencia;
 import com.pickanis.api.dominio.modelo.Paseador;
 import com.pickanis.api.dominio.modelo.Usuario;
+import com.pickanis.api.dominio.repositorio.RepositorioContactoEmergencia;
 import com.pickanis.api.dominio.repositorio.RepositorioCuentaUsuario;
 import com.pickanis.api.dominio.repositorio.RepositorioPaseador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ServicioCuentaUsuario {
@@ -15,11 +19,13 @@ public class ServicioCuentaUsuario {
     private static final String ERROR_USERNAME = "No se halló el nombre de usuario %s";
     private final RepositorioCuentaUsuario repositorio;
     private final RepositorioPaseador repositorioPaseador;
+    private final RepositorioContactoEmergencia repositorioContactoEmergencia;
 
     @Autowired
-    public ServicioCuentaUsuario(RepositorioCuentaUsuario repositorio, RepositorioPaseador repositorioPaseador) {
+    public ServicioCuentaUsuario(RepositorioCuentaUsuario repositorio, RepositorioPaseador repositorioPaseador, RepositorioContactoEmergencia repositorioContactoEmergencia) {
         this.repositorio = repositorio;
         this.repositorioPaseador = repositorioPaseador;
+        this.repositorioContactoEmergencia = repositorioContactoEmergencia;
     }
 
     public Usuario obtenerMiPerfil(String nombreUsuario) {
@@ -48,5 +54,13 @@ public class ServicioCuentaUsuario {
     public void guardarInformacionPersonal(Usuario nuevo, String nombreUsuario) {
         Usuario viejo = obtenerMiPerfil(nombreUsuario);
         this.repositorio.guardarInformacionPersonal(Usuario.actualizarDatos(nuevo, viejo));
+    }
+
+    public ContactoEmergencia crearOEditarContactoEmergencia(ContactoEmergencia contacto, String nombreUsuario) {
+        return this.repositorioContactoEmergencia.crearOEditarContacto(contacto, nombreUsuario);
+    }
+
+    public List<ContactoEmergencia> obtenerMisContactosDeEmergencia(String nombreUsuario) {
+        return this.repositorioContactoEmergencia.obtenerMisContactosDeEmergencia(nombreUsuario);
     }
 }
