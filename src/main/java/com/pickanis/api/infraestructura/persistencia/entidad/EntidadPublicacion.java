@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -40,9 +41,9 @@ public class EntidadPublicacion {
     @Column(nullable = false)
     private LocalDateTime fechaFinal;
 
-    @NotBlank(message = "El campo Estado no puede estar vacío")
-    @Column(length = 1, nullable = false)
-    private String estado;
+    @NotNull(message = "El campo Estado no puede estar vacío")
+    @Column(nullable = false)
+    private Boolean estado;
 
     @NotBlank(message = "El campo Tipo no puede estar vacío")
     @Column(length = 1, nullable = false)
