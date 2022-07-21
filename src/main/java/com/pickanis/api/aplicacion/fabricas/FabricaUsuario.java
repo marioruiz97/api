@@ -1,6 +1,7 @@
 package com.pickanis.api.aplicacion.fabricas;
 
 import com.pickanis.api.aplicacion.comandos.ComandoRegistro;
+import com.pickanis.api.dominio.modelo.ContactoUsuario;
 import com.pickanis.api.dominio.modelo.Paseador;
 import com.pickanis.api.dominio.modelo.Usuario;
 import org.springframework.stereotype.Component;
@@ -9,8 +10,9 @@ import org.springframework.stereotype.Component;
 public class FabricaUsuario {
 
     public Usuario construir(ComandoRegistro registro) {
-        return Usuario.nuevoRegistro(registro.getIdentificacion(), registro.getNombre(), registro.getApellidos(), registro.getCorreo(),
-                registro.getUsuario(), registro.getContrasena());
+        ContactoUsuario contacto = ContactoUsuario.crearContacto(registro.getCelular(), registro.getTelefono(), registro.getDireccion());
+        return Usuario.nuevoRegistro(registro.getIdentificacion(), registro.getTipoDocumento(), registro.getNombre(), registro.getApellidos(), registro.getCorreo(),
+                registro.getNombreUsuario(), registro.getContrasena(), contacto);
     }
 
     public Paseador construirPaseador(Usuario usuario, ComandoRegistro nuevoRegistro) {

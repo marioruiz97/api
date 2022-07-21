@@ -15,8 +15,8 @@ import javax.validation.Valid;
 @RequestMapping("cuenta/registro")
 public class ControladorRegistroUsuario extends ControladorBase {
 
-    public static final String SE_HA_REGISTRADO_EL_USUARIO_S_CON_ÉXITO = "Se ha registrado el usuario %s con éxito";
-    private static final String SE_HA_REGISTRADO_EL_PASEADOR_CON_ÉXITO = "Se ha registrado el usuario %s como paseador de forma exitosa";
+    public static final String SE_HA_REGISTRADO_EL_USUARIO_S_CON_EXITO = "Se ha registrado el usuario %s con éxito";
+    private static final String SE_HA_REGISTRADO_EL_PASEADOR_CON_EXITO = "Se ha registrado el usuario %s como paseador de forma exitosa";
     private final ManejadorRegistroUsuario manejadorRegistroUsuario;
 
     @Autowired
@@ -33,18 +33,17 @@ public class ControladorRegistroUsuario extends ControladorBase {
         }
     }
 
-
     private ResponseEntity<Respuesta> registrarUsuario(@Valid ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
         validarDatosEntrada(bindingResult);
         manejadorRegistroUsuario.registrarUsuario(nuevoRegistro);
-        String mensaje = String.format(SE_HA_REGISTRADO_EL_USUARIO_S_CON_ÉXITO, nuevoRegistro.getUsuario());
+        String mensaje = String.format(SE_HA_REGISTRADO_EL_USUARIO_S_CON_EXITO, nuevoRegistro.getNombreUsuario());
         return new ResponseEntity<>(new Respuesta(mensaje, true), HttpStatus.CREATED);
     }
 
     private ResponseEntity<Respuesta> registrarPaseador(@Valid ComandoRegistro nuevoRegistro, BindingResult bindingResult) {
         validarDatosEntrada(bindingResult);
         manejadorRegistroUsuario.registrarPaseador(nuevoRegistro);
-        String mensaje = String.format(SE_HA_REGISTRADO_EL_PASEADOR_CON_ÉXITO, nuevoRegistro.getUsuario());
+        String mensaje = String.format(SE_HA_REGISTRADO_EL_PASEADOR_CON_EXITO, nuevoRegistro.getNombreUsuario());
         return new ResponseEntity<>(new Respuesta(mensaje, true), HttpStatus.CREATED);
     }
 

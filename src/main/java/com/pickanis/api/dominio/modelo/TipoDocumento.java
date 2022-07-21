@@ -3,19 +3,19 @@ package com.pickanis.api.dominio.modelo;
 import com.pickanis.api.dominio.excepcion.ExcepcionDatosEntrada;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.List;
 
 public enum TipoDocumento {
-    CEDULA("Cédula de Ciudadanía"), PASAPORTE("Pasaporte"), TARJETA_IDENTIDAD("Tarjeta de Identidad");
+    CEDULA(1), PASAPORTE(2), TARJETA_IDENTIDAD(3);
 
     @Getter
-    private final String tipoDocumento;
+    private final Integer tipoDocumento;
 
-    TipoDocumento(String tipo) {
+    TipoDocumento(Integer tipo) {
         this.tipoDocumento = tipo;
     }
 
-    public static TipoDocumento buildEnum(Integer tipo) throws ExcepcionDatosEntrada {
+    public static TipoDocumento buildEnum(Integer tipo) {
         switch (tipo) {
             case 1:
                 return TipoDocumento.CEDULA;
@@ -24,7 +24,7 @@ public enum TipoDocumento {
             case 3:
                 return TipoDocumento.TARJETA_IDENTIDAD;
             default:
-                throw new ExcepcionDatosEntrada(Arrays.asList("Tipo de documento no válido"));
+                throw new ExcepcionDatosEntrada(List.of("Tipo de documento no válido"));
         }
     }
 }

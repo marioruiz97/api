@@ -7,4 +7,6 @@ public interface RepositorioCuentaUsuario {
     String obtenerIdentificacion(String nombreUsuario);
 
     Usuario obtenerUsuarioPorIdentificacion(String identificacion);
+
+    void guardarInformacionPersonal(Usuario usuario);
 }

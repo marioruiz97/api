@@ -2,7 +2,7 @@ package com.pickanis.api.dominio.excepcion;
 
 import java.util.List;
 
-public class ExcepcionDatosEntrada extends Exception {
+public class ExcepcionDatosEntrada extends RuntimeException {
 
     private final List<String> errores;
 

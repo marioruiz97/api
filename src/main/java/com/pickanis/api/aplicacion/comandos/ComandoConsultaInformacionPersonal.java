@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class ComandoInformacionPersonal {
+public class ComandoConsultaInformacionPersonal {
 
     private Usuario usuario;
     private String tiempoExperiencia;
@@ -14,7 +14,7 @@ public class ComandoInformacionPersonal {
     private Boolean estado;
     private final Boolean esPaseador;
 
-    public ComandoInformacionPersonal(Usuario usuario, Boolean esPaseador) {
+    public ComandoConsultaInformacionPersonal(Usuario usuario, Boolean esPaseador) {
         this.usuario = usuario;
         this.esPaseador = esPaseador;
     }

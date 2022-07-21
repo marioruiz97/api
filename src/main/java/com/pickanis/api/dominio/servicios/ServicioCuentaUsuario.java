@@ -41,7 +41,12 @@ public class ServicioCuentaUsuario {
         String identificacion = repositorio.obtenerIdentificacion(nombreUsuario);
         if (identificacion == null)
             throw new UsernameNotFoundException(String.format(ERROR_USERNAME, nombreUsuario));
-        System.out.println(String.format("Cargando perfil de %s con id: %s", nombreUsuario, identificacion));
+        System.out.printf("Cargando perfil de %s con id: %s%n", nombreUsuario, identificacion);
         return identificacion;
+    }
+
+    public void guardarInformacionPersonal(Usuario nuevo, String nombreUsuario) {
+        Usuario viejo = obtenerMiPerfil(nombreUsuario);
+        this.repositorio.guardarInformacionPersonal(Usuario.actualizarDatos(nuevo, viejo));
     }
 }

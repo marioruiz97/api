@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ManejadorRegistroUsuario {
 
-
     private final ServicioRegistroUsuario servicioRegistroUsuario;
     private final FabricaUsuario fabricaUsuario;
 

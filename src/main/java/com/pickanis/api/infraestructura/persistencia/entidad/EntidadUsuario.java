@@ -1,5 +1,8 @@
 package com.pickanis.api.infraestructura.persistencia.entidad;
 
+import com.pickanis.api.dominio.modelo.TipoDocumento;
+import com.pickanis.api.dominio.modelo.Usuario;
+import com.pickanis.api.infraestructura.persistencia.convertidor.ConvertidorContactoUsuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +10,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -14,11 +19,15 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "usuarios", uniqueConstraints = {@UniqueConstraint(name = "uk_usuarios_identificacion", columnNames = {"identificacion", "nombreUsuario"})})
-public class EntidadUsuario {
+public class EntidadUsuario implements Serializable {
     @Id
     @NotBlank(message = "El campo Identificación no puede estar vacío")
     @Column(length = 15, unique = true, nullable = false)
     private String identificacion;
+
+    @NotNull
+    @Column(nullable = false)
+    private TipoDocumento tipoDocumento;
 
     @NotBlank(message = "El campo Nombre no puede estar vacío")
     @Column(length = 50, nullable = false)
@@ -27,6 +36,10 @@ public class EntidadUsuario {
     @NotBlank(message = "El campo Apellido no puede estar vacío")
     @Column(length = 50, nullable = false)
     private String apellido;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_contacto")
+    private EntidadContactoUsuario contactoUsuario;
 
     @NotBlank(message = "El campo correo no puede estar vacío")
     @Column(length = 50, nullable = false, unique = true)
@@ -51,4 +64,11 @@ public class EntidadUsuario {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"id_usuario", "rol_id"})})
     private List<Roles> roles;
 
+    public void actualizarInformacionPersonal(Usuario usuario) {
+        this.nombre = usuario.getNombre();
+        this.apellido = usuario.getApellido();
+        this.correo = usuario.getCorreo();
+        this.foto = usuario.getFoto();
+        this.contactoUsuario = ConvertidorContactoUsuario.convertirAEntidad(usuario.getContacto());
+    }
 }
