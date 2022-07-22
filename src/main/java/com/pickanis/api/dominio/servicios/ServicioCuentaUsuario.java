@@ -63,4 +63,12 @@ public class ServicioCuentaUsuario {
     public List<ContactoEmergencia> obtenerMisContactosDeEmergencia(String nombreUsuario) {
         return this.repositorioContactoEmergencia.obtenerMisContactosDeEmergencia(nombreUsuario);
     }
+
+    public void desactivarCuenta(Usuario usuario) {
+        this.repositorio.desactivarUsuario(usuario);
+    }
+
+    public void cambiarContrasena(String nombreUsuario, String contrasena) {
+        this.repositorio.cambiarContrasena(nombreUsuario, contrasena);
+    }
 }

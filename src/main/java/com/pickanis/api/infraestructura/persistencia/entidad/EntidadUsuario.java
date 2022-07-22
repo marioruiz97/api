@@ -71,4 +71,8 @@ public class EntidadUsuario implements Serializable {
         this.foto = usuario.getFoto();
         this.contactoUsuario = ConvertidorContactoUsuario.convertirAEntidad(usuario.getContacto());
     }
+
+    public void desactivarCuenta() {
+        this.habilitado = false;
+    }
 }

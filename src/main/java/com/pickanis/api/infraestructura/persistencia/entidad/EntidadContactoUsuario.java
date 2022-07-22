@@ -20,12 +20,12 @@ public class EntidadContactoUsuario {
     private Integer idContactoUsuario;
 
     @NotBlank(message = "El campo Celular no puede estar vacío")
-    @Column(length = 10, nullable = false)
+    @Column(length = 11, nullable = false)
     @Pattern(regexp = "(^$|[0-9]{7,11})")
     private String celular;
 
     @NotBlank(message = "El Campo Teléfono Fijo no puede estar vacío")
-    @Column(length = 10, nullable = false)
+    @Column(length = 11, nullable = false)
     @Pattern(regexp = "(^$|[0-9]{7,11})")
     private String telefonoFijo;
 

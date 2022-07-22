@@ -1,5 +1,6 @@
 package com.pickanis.api.aplicacion.manejadores;
 
+import com.pickanis.api.aplicacion.comandos.ComandoCambioContrasena;
 import com.pickanis.api.aplicacion.comandos.ComandoConsultaInformacionPersonal;
 import com.pickanis.api.aplicacion.comandos.ComandoGuardarInformacionPersonal;
 import com.pickanis.api.aplicacion.fabricas.FabricaCuentaUsuario;
@@ -8,6 +9,7 @@ import com.pickanis.api.dominio.modelo.ContactoEmergencia;
 import com.pickanis.api.dominio.modelo.Usuario;
 import com.pickanis.api.dominio.servicios.ServicioCuentaUsuario;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -44,5 +46,16 @@ public class ManejadorCuentaUsuario {
 
     public List<ContactoEmergencia> obtenerMisContactosDeEmergencia(String nombreUsuario) {
         return this.servicioCuentaUsuario.obtenerMisContactosDeEmergencia(nombreUsuario);
+    }
+
+    public void desactivarCuenta(String nombreUsuario, String identificacion) {
+        Usuario usuario = obtenerMiPerfil(nombreUsuario).getUsuario();
+        if (!identificacion.equals(usuario.getIdentificacion()))
+            throw new UsernameNotFoundException("No se encontró el usuario en base de datos");
+        this.servicioCuentaUsuario.desactivarCuenta(usuario);
+    }
+
+    public void cambiarContrasena(String nombreUsuario, ComandoCambioContrasena nuevaContrasena) {
+        this.servicioCuentaUsuario.cambiarContrasena(nombreUsuario, nuevaContrasena.getContrasena());
     }
 }

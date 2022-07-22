@@ -8,5 +8,11 @@ public interface RepositorioCuentaUsuario {
 
     Usuario obtenerUsuarioPorIdentificacion(String identificacion);
 
+    Usuario obtenerUsuarioPorNombreUsuario(String nombreUsuario);
+
     void guardarInformacionPersonal(Usuario usuario);
+
+    void desactivarUsuario(Usuario usuario);
+
+    void cambiarContrasena(String nombreUsuario, String nuevaContrasena);
 }

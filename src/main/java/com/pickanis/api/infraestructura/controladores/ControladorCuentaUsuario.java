@@ -1,10 +1,12 @@
 package com.pickanis.api.infraestructura.controladores;
 
+import com.pickanis.api.aplicacion.comandos.ComandoCambioContrasena;
 import com.pickanis.api.aplicacion.comandos.ComandoConsultaInformacionPersonal;
 import com.pickanis.api.aplicacion.comandos.ComandoGuardarInformacionPersonal;
 import com.pickanis.api.aplicacion.manejadores.ManejadorCuentaUsuario;
 import com.pickanis.api.dominio.excepcion.ExcepcionDatosExpuestos;
 import com.pickanis.api.dominio.modelo.ContactoEmergencia;
+import com.pickanis.api.infraestructura.api.Respuesta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,15 @@ public class ControladorCuentaUsuario extends ControladorBase {
         return new ResponseEntity<>(perfil, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{identificacion}")
+    public ResponseEntity<Respuesta> desactivarMiCuenta(@PathVariable String identificacion) {
+        String nombreUsuario = obtenerUsuarioEnSesion();
+        this.manejadorCuentaUsuario.desactivarCuenta(nombreUsuario, identificacion);
+        Respuesta respuesta = new Respuesta(String.format("Se desactivó el usuario %s con éxito", nombreUsuario), true);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
+
     @PostMapping("/info-personal/{identificacion}")
     public ResponseEntity<?> guardarDatosPersonales(@Valid @RequestBody ComandoGuardarInformacionPersonal informacion, BindingResult bindingResult,
                                                     @PathVariable String identificacion) {
@@ -43,8 +54,19 @@ public class ControladorCuentaUsuario extends ControladorBase {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/{identificacion}/cambiar-contrasena")
+    public ResponseEntity<Respuesta> cambiarContrasena(@PathVariable String identificacion, @Valid @RequestBody ComandoCambioContrasena comando, BindingResult bindingResult) {
+        if (!identificacion.equals(comando.getIdentificacion()))
+            throw new ExcepcionDatosExpuestos();
+        validarDatosEntrada(bindingResult);
+        String nombreUsuario = obtenerUsuarioEnSesion();
+        this.manejadorCuentaUsuario.cambiarContrasena(nombreUsuario, comando);
+        Respuesta respuesta = new Respuesta(String.format("Se cambió la contraseña para el usuario %s con éxito", nombreUsuario), true);
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
     @GetMapping("/contactos")
-    public List<ContactoEmergencia> obtenerContactosDeEmergencia(){
+    public List<ContactoEmergencia> obtenerContactosDeEmergencia() {
         String nombreUsuario = obtenerUsuarioEnSesion();
         return this.manejadorCuentaUsuario.obtenerMisContactosDeEmergencia(nombreUsuario);
     }

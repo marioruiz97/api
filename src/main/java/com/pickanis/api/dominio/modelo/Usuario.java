@@ -65,4 +65,17 @@ public class Usuario {
                 viejo.getHabilitado(),
                 contacto);
     }
+
+    public static Usuario cambiarContrasena(Usuario usuario, String contrasena) {
+        return new Usuario(usuario.getIdentificacion(),
+                usuario.getTipoDocumento().getTipoDocumento(),
+                usuario.getNombre(),
+                usuario.getApellido(),
+                usuario.getCorreo(),
+                usuario.getNombreUsuario(),
+                contrasena,
+                usuario.getFoto(),
+                usuario.getHabilitado(),
+                usuario.getContacto());
+    }
 }
