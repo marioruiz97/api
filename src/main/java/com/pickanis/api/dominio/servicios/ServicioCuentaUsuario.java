@@ -71,4 +71,8 @@ public class ServicioCuentaUsuario {
     public void cambiarContrasena(String nombreUsuario, String contrasena) {
         this.repositorio.cambiarContrasena(nombreUsuario, contrasena);
     }
+
+    public void eliminarContactoEmergencia(Integer idContacto, String nombreUsuario) {
+        this.repositorioContactoEmergencia.eliminarContacto(idContacto, nombreUsuario);
+    }
 }

@@ -8,4 +8,6 @@ public interface RepositorioContactoEmergencia {
     ContactoEmergencia crearOEditarContacto(ContactoEmergencia contacto, String nombreUsuario);
 
     List<ContactoEmergencia> obtenerMisContactosDeEmergencia(String nombreUsuario);
+
+    void eliminarContacto(Integer idContacto, String nombreUsuario);
 }

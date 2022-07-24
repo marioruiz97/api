@@ -91,4 +91,14 @@ public class ControladorCuentaUsuario extends ControladorBase {
         return new ResponseEntity<>(nuevoContacto, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/contactos/{idContacto}")
+    public ResponseEntity<Respuesta> eliminarContactoEmergencia(@PathVariable Integer idContacto) {
+        Respuesta respuesta = new Respuesta("No se pudo eliminar el contacto", false);
+        if (idContacto != null) {
+            this.manejadorCuentaUsuario.eliminarContactoEmergencia(idContacto, obtenerUsuarioEnSesion());
+            respuesta = new Respuesta("Se eliminó el contacto con éxito", true);
+        }
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
+    }
+
 }

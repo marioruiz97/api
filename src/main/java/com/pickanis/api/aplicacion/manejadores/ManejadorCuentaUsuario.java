@@ -58,4 +58,8 @@ public class ManejadorCuentaUsuario {
     public void cambiarContrasena(String nombreUsuario, ComandoCambioContrasena nuevaContrasena) {
         this.servicioCuentaUsuario.cambiarContrasena(nombreUsuario, nuevaContrasena.getContrasena());
     }
+
+    public void eliminarContactoEmergencia(Integer idContacto, String nombreUsuario) {
+        this.servicioCuentaUsuario.eliminarContactoEmergencia(idContacto, nombreUsuario);
+    }
 }

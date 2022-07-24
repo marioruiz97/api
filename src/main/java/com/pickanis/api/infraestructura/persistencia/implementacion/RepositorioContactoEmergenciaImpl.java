@@ -1,5 +1,6 @@
 package com.pickanis.api.infraestructura.persistencia.implementacion;
 
+import com.pickanis.api.dominio.excepcion.ExcepcionDatosEntrada;
 import com.pickanis.api.dominio.modelo.ContactoEmergencia;
 import com.pickanis.api.dominio.repositorio.RepositorioContactoEmergencia;
 import com.pickanis.api.infraestructura.persistencia.convertidor.ConvertidorContactoEmergencia;
@@ -40,5 +41,21 @@ public class RepositorioContactoEmergenciaImpl implements RepositorioContactoEme
         EntidadUsuario usuario = repositorioUsuarioJPA.findByNombreUsuario(nombreUsuario)
                 .orElseThrow(() -> new UsernameNotFoundException(USUARIO_NO_ENCONTRADO));
         return this.repositorioJPA.findByUsuario(usuario).stream().map(ConvertidorContactoEmergencia::convertirADominio).collect(Collectors.toList());
+    }
+
+    @Override
+    public void eliminarContacto(Integer idContacto, String nombreUsuario) {
+        EntidadUsuario usuario = repositorioUsuarioJPA.findByNombreUsuario(nombreUsuario)
+                .orElseThrow(() -> new UsernameNotFoundException(USUARIO_NO_ENCONTRADO));
+        EntidadContactoEmergencia contacto = this.repositorioJPA.findById(idContacto).orElseThrow(() -> {
+            String error = String.format("No se encontró el contacto con id %d", idContacto);
+            throw new ExcepcionDatosEntrada(List.of(error));
+        });
+        if (!contacto.getUsuario().equals(usuario)) {
+            String error = String.format("No se puede eliminar el contacto con id %d ya que no está relacionado al usuario en sesión", idContacto);
+            throw new ExcepcionDatosEntrada(List.of(error));
+        }
+        this.repositorioJPA.deleteById(idContacto);
+        System.out.printf("Se eliminó el contacto con id %d relacionado al usuario %s", idContacto, nombreUsuario);
     }
 }
