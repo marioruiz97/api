@@ -1,17 +1,20 @@
 package com.pickanis.api.infraestructura.persistencia.entidad;
 
+import com.pickanis.api.dominio.modelo.SexoMascota;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "mascotas", uniqueConstraints = {@UniqueConstraint(name = "uk_mascota", columnNames = {"idMascota","nombre"})})
+@Table(name = "mascotas", uniqueConstraints = {@UniqueConstraint(name = "uk_mascota", columnNames = {"idMascota", "nombre"})})
 public class EntidadMascota {
 
     @Id
@@ -26,20 +29,25 @@ public class EntidadMascota {
     @Column(length = 50, nullable = false)
     private String raza;
 
-    @NotBlank(message = "El campo Edad no puede estar vacío")
-    @Column(length = 2, nullable = false)
-    private Integer edad;
+    @NotNull
+    @Column(nullable = false)
+    private SexoMascota sexo;
+
+    @NotNull(message = "El campo fecha nacimiento no puede estar vacío")
+    @Column(nullable = false)
+    private LocalDate fechaNacimiento;
 
     @ManyToOne
     @JoinColumn(name = "identificacion_dueno", referencedColumnName = "identificacion", nullable = false)
     private EntidadUsuario dueno;
 
+    @NotNull
     @Column(length = 3)
     private Integer peso;
 
     @Column(length = 250)
     private String observaciones;
 
-    @Column(length = 100) //Dirreccion a la ubicacionde la imagen
+    @Column //Direccion url a la ubicacion de la imagen
     private String foto;
 }
