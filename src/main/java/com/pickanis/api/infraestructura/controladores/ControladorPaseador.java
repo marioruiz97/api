@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("paseadores")
@@ -21,6 +22,13 @@ public class ControladorPaseador extends ControladorBase {
     @Autowired
     public ControladorPaseador(ManejadorPaseador manejadorPaseador) {
         this.manejadorPaseador = manejadorPaseador;
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<Paseador>> obtenerPaseadores() {
+        List<Paseador> lista = this.manejadorPaseador.obtenerPaseadores();
+        return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
     @GetMapping("/mi-info")
@@ -36,7 +44,7 @@ public class ControladorPaseador extends ControladorBase {
     }
 
     @PostMapping
-    public ResponseEntity<?> registrarPaseador(@Valid @RequestBody ComandoPerfilPaseador comando, BindingResult bindingResult) {
+    public ResponseEntity<Respuesta> registrarPaseador(@Valid @RequestBody ComandoPerfilPaseador comando, BindingResult bindingResult) {
         validarDatosEntrada(bindingResult);
         comando.setNombreUsuario(obtenerUsuarioEnSesion());
         this.manejadorPaseador.registrarPaseador(comando);
@@ -47,7 +55,7 @@ public class ControladorPaseador extends ControladorBase {
     }
 
     @PutMapping
-    public ResponseEntity<?> editarPerfilPaseador(@Valid @RequestBody ComandoPerfilPaseador comando, BindingResult bindingResult) {
+    public ResponseEntity<Respuesta> editarPerfilPaseador(@Valid @RequestBody ComandoPerfilPaseador comando, BindingResult bindingResult) {
         validarDatosEntrada(bindingResult);
         comando.setNombreUsuario(obtenerUsuarioEnSesion());
         this.manejadorPaseador.editarPaseador(comando);

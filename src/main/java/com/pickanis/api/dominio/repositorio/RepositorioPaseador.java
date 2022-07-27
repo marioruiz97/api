@@ -3,6 +3,8 @@ package com.pickanis.api.dominio.repositorio;
 import com.pickanis.api.dominio.modelo.Paseador;
 import com.pickanis.api.dominio.modelo.Usuario;
 
+import java.util.List;
+
 public interface RepositorioPaseador {
 
     boolean esPaseador(String identificacion);
@@ -13,4 +15,5 @@ public interface RepositorioPaseador {
 
     void guardarPerfilPaseador(Usuario usuario, String perfil, String tiempoExperiencia);
 
+    List<Paseador> obtenerPaseadores();
 }

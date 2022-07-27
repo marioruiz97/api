@@ -6,6 +6,8 @@ import com.pickanis.api.dominio.servicios.ServicioPaseador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ManejadorPaseador {
     private final ServicioPaseador servicioPaseador;
@@ -35,4 +37,7 @@ public class ManejadorPaseador {
         this.servicioPaseador.registrarOEditarPerfilPaseador(comando.getNombreUsuario(), comando.getPerfil(), comando.getTiempoExperiencia());
     }
 
+    public List<Paseador> obtenerPaseadores() {
+        return this.servicioPaseador.obtenerPaseadores();
+    }
 }

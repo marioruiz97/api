@@ -7,6 +7,8 @@ import com.pickanis.api.dominio.repositorio.RepositorioPaseador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ServicioPaseador {
     private final RepositorioPaseador repositorioPaseador;
@@ -40,4 +42,7 @@ public class ServicioPaseador {
         this.repositorioPaseador.guardarPerfilPaseador(usuario, perfil, tiempoExperiencia);
     }
 
+    public List<Paseador> obtenerPaseadores() {
+        return this.repositorioPaseador.obtenerPaseadores();
+    }
 }

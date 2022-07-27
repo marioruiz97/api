@@ -11,6 +11,9 @@ import com.pickanis.api.infraestructura.persistencia.repositorio.RepositorioUsua
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 public class RepositorioPaseadorImpl implements RepositorioPaseador {
 
@@ -22,6 +25,11 @@ public class RepositorioPaseadorImpl implements RepositorioPaseador {
     public RepositorioPaseadorImpl(RepositorioPaseadorJPA repositorioPaseadorJPA, RepositorioUsuarioJPA repositorioUsuarioJPA) {
         this.repositorioPaseadorJPA = repositorioPaseadorJPA;
         this.repositorioUsuarioJPA = repositorioUsuarioJPA;
+    }
+
+    @Override
+    public List<Paseador> obtenerPaseadores() {
+        return this.repositorioPaseadorJPA.findAll().stream().map(ConvertidorPaseador::convertirADominio).collect(Collectors.toList());
     }
 
     @Override
