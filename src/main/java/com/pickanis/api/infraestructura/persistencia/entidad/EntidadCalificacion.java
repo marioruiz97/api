@@ -20,7 +20,7 @@ public class EntidadCalificacion {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "identificacion_Calificado", referencedColumnName = "identificacion")
-    private EntidadUsuario usuarioCalificado;
+    private EntidadUsuario usuarioCalificado; // TODO: cambiar por entidad paseador
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "identificacion_Calificador", referencedColumnName = "identificacion")

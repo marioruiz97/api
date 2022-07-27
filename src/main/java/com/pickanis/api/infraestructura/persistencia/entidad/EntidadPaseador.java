@@ -38,4 +38,15 @@ public class EntidadPaseador {
 
     @Column(length = 2)
     private Integer calificacion;
+
+    public void desactivarPaseador() {
+        this.estado = false;
+    }
+
+    public void editarInfoPerfilActivo(String perfil, String tiempoExperiencia) {
+        this.perfilExperiencia = perfil;
+        this.tiempoExperiencia = tiempoExperiencia;
+        this.estado = true;
+    }
+
 }
